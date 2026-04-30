@@ -1,4 +1,4 @@
-name: Java + Python CI Pipeline
+name: Java CI Pipeline
 
 on:
   push:
@@ -9,22 +9,22 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # Setup Java
-      - name: Set up JDK
+      - name: Set up Java
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Build Java app
+      - name: Build project
         run: mvn clean package
 
-      - name: Run Java app
-        run: java -cp target/sample-app-1.0-SNAPSHOT.jar com.example.App
-
-      
+      - name: Run application
+        run: java -jar target/sample-app-1.0-SNAPSHOT.jar
+        
