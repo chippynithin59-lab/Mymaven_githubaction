@@ -1,0 +1,23 @@
+name: Java + Python CI Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build Java app
+        run: mvn clean package
+
+      - name: Run Java app
+        run: java -cp target/sample-app-1.0-SNAPSHOT.jar com.example.App
+
+      
