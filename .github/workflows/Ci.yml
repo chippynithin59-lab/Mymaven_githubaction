@@ -1,10 +1,9 @@
-name: Java CI Pipeline
+name: Java CI
 
 on:
   push:
     branches:
       - main
-  workflow_dispatch:
 
 jobs:
   build:
@@ -13,19 +12,15 @@ jobs:
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Set up Java
-        uses: actions/setup-java@v4
+      - name: Debug
+        run: ls -R
+
+      - uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Build project
+      - name: Build
         run: mvn clean package
-
-      - name: Run application
-        run: java -jar target/sample-app-1.0-SNAPSHOT.jar
-      - name: Debug - list files
-        run: ls -R
